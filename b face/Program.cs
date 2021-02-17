@@ -1,4 +1,7 @@
 ﻿using System;
+using RestSharp;
+using Newtonsoft.Json;
+
 
 namespace b_face
 {
@@ -6,7 +9,21 @@ namespace b_face
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            RestClient client = new RestClient("https://pokeapi.co/api/v2/");
+
+            RestRequest request = new RestRequest("pokemon/probopass");
+
+            IRestResponse response = client.Get(request);
+
+
+            Pokemon probopass = JsonConvert.DeserializeObject<Pokemon>(response.Content);
+
+            Console.WriteLine("Name: " + probopass.name);
+            System.Console.WriteLine("Id: " + probopass.id);
+
+
+            Console.ReadLine();
+
         }
     }
 }
